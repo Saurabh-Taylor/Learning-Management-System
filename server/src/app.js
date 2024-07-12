@@ -18,6 +18,7 @@ app.use(cors({
 app.use(express.json())
 app.use(morgan("dev"))
 app.use(cookieParser())
+app.use(express.urlencoded({extended:true}))
 
 //routes
 app.get("/" , (req,res)=>{

@@ -1,9 +1,10 @@
-import { log } from "console";
 import { cookieOptions } from "../constants.js";
 import { User } from "../models/user.model.js";
-import { ApiResponse, ApiError } from "../utils/index.js";
+import {  ApiError } from "../utils/index.js";
 import cloudinary from "cloudinary"
 import fs from "fs";
+import { sendEmail } from "../utils/sendEmail.js";
+import crypto from "crypto";
 
 const register = async (req, res, next) => {
   try {
@@ -70,7 +71,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -78,16 +79,19 @@ const login = async (req, res) => {
     }
     const user = await User.findOne({ email }).select("+password");
     console.log(user);
-    if (!user || !user.comparePassword(password)) {
+    if(!user){
+      return next(new ApiError("User doesnt exists", 400));
+    }
+    if (!await user.comparePassword(password)) {
       return next(
-        new ApiError("User doesnt exists or password is invalid", 400)
+        new ApiError("password is invalid", 400)
       );
     }
 
     const token = user.generateJWTToken();
     user.password = undefined;
     res.cookie("token", token, cookieOptions);
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "User Logged In Successfully",
       user,
@@ -97,7 +101,7 @@ const login = async (req, res) => {
   }
 };
 
-const logout = async (req, res) => {
+const logout = async (req, res, next) => {
   try {
     // res.clearCookie("token");
     res.cookie("token", null , { maxAge: 0, httpOnly: true });
@@ -110,7 +114,7 @@ const logout = async (req, res) => {
   }
 };
 
-const getProfile = async (req, res) => {
+const getProfile = async (req, res,next) => {
     try {
         const userId = req.user.id
         const user = await User.findById(userId)
@@ -127,4 +131,80 @@ const getProfile = async (req, res) => {
     }
 };
 
-export { register, login, logout, getProfile };
+const forgetPassword = async (req,res,next)=>{
+  try {
+    const {email} = req.body
+    if(!email){
+      return next(new ApiError("Please provide email", 400))
+    }
+    const user = await User.findOne({email})
+    if(!user){
+      return next(new ApiError("User not found", 404))
+    }
+    const resetToken = await user.generateRefreshToken()
+    await user.save()
+
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`
+    const subject = 'Reset Password'
+    const message = `you can reset password by clicking on <a href=${resetLink} target='_blank' `
+
+    //sendEmail
+    try {
+      await sendEmail(email , subject , message)
+    } catch (error) {
+      user.forgotPasswordToken= undefined
+      user.forgotPasswordExpire= undefined
+      await user.save()
+      return next(new ApiError(error.message, 500));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Password reset link sent to your ${email}`,
+    })
+
+  } catch (error) {
+    return next(new ApiError(error.message, 500));
+  }
+}
+
+const resetPassword =  async(req,res,next)=>{
+  try {
+    const {token} = req.params
+    const {password} = req.body
+
+    if(!password){
+      return next(new ApiError("Please provide password", 400))
+    }
+    const forgotPasswordToken = crypto.createHash("sha256").update(token).digest("hex")
+    const user = await User.findOne({
+      forgotPasswordToken,
+      forgotPasswordExpire: { $gt: Date.now() }
+    });
+    if(!user){
+      return next(new ApiError("Invalid token", 400))
+    }
+    user.password = password
+    user.forgotPasswordToken= undefined
+    user.forgotPasswordExpire= undefined
+    await user.save()
+    
+    return res.status(200).json({
+      success: true,
+      message: "Password reset successfully",
+    })
+
+  } catch (error) {
+    
+  }
+}
+
+const changePassword = async (req,res,next)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+export { register, login, logout, getProfile , forgetPassword , resetPassword , changePassword };
