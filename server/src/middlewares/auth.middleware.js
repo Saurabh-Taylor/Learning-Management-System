@@ -15,4 +15,19 @@ const isLoggedIn = (req,res,next)=>{
    }
 }
 
+
+
+
+export const adminMiddleware = async (req,res,next)=>{
+  try {
+      if(req.user.role === "ADMIN"){
+        next()
+      }else{
+        return next(new ApiError("You are not authorized to access this route", 403));
+      }
+  } catch (error) {
+    return next(new ApiError(error.message, 500));
+  }
+}
+
 export {isLoggedIn}
