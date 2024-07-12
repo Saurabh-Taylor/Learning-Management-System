@@ -1,6 +1,9 @@
+import { log } from "console";
 import { cookieOptions } from "../constants.js";
 import { User } from "../models/user.model.js";
 import { ApiResponse, ApiError } from "../utils/index.js";
+import cloudinary from "cloudinary"
+import fs from "fs";
 
 const register = async (req, res, next) => {
   try {
@@ -31,7 +34,28 @@ const register = async (req, res, next) => {
     }
 
     // todo file upload
-
+    if(req.file){
+      try {
+        const result = await cloudinary.v2.uploader.upload(req.file.path , {
+          folder: "users",
+          width:250,
+          height:250,
+          gravity:"faces",
+          crop:"fill"
+        })
+        if(result){
+          console.log(result.public_id);
+          user.avatar.public_id = result.public_id
+          user.avatar.secure_url = result.secure_url
+          //now we have to remove the file from local server as well
+          fs.unlinkSync(req.file.path)
+          
+        }
+      } catch (error) {
+        return next(new ApiError(error.message, 500));
+      }
+    }
+    await user.save()
     user.password = undefined;
     const token = await user.generateJWTToken();
     res.cookie("token", token, cookieOptions);
