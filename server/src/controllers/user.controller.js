@@ -52,7 +52,8 @@ const login = async (req, res) => {
     if (!email || !password) {
       return next(new ApiError("All fields are mandatory", 400));
     }
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
+    console.log(user);
     if (!user || !user.comparePassword(password)) {
       return next(
         new ApiError("User doesnt exists or password is invalid", 400)
@@ -74,7 +75,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    res.clearCookie("token");
+    // res.clearCookie("token");
     res.cookie("token", null , { maxAge: 0, httpOnly: true });
     res.status(200).json({
         success: true,
