@@ -9,7 +9,6 @@ import crypto from "crypto";
 const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    console.log(name, email, password);
 
     if (!name || !email || !password) {
       return next(new ApiError("All field are required", 400));
@@ -45,7 +44,6 @@ const register = async (req, res, next) => {
           crop: "fill",
         });
         if (result) {
-          console.log(result.public_id);
           user.avatar.public_id = result.public_id;
           user.avatar.secure_url = result.secure_url;
           //now we have to remove the file from local server as well
@@ -77,7 +75,6 @@ const login = async (req, res, next) => {
       return next(new ApiError("All fields are mandatory", 400));
     }
     const user = await User.findOne({ email }).select("+password");
-    console.log(user);
     if (!user) {
       return next(new ApiError("User doesnt exists", 400));
     }
@@ -239,7 +236,6 @@ const updateProfile = async (req, res, next) => {
           crop: "fill",
         });
         if (result) {
-          console.log(result.public_id);
           user.avatar.public_id = result.public_id;
           user.avatar.secure_url = result.secure_url;
           //now we have to remove the file from local server as well

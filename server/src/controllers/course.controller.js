@@ -3,7 +3,6 @@ import { ApiError } from "../utils/index.js";
 import fs from "fs";
 
 import cloudinary from "cloudinary";
-import { log } from "console";
 
 const getAllCourses = async (req, res, next) => {
   try {
@@ -39,7 +38,6 @@ const getCourseById = async (req, res, next) => {
 
 const createCourse = async(req,res,next)=>{
     try {
-        console.log("req.user::" , JSON.stringify(req.user));
         const { title , description , category   } = req.body
         const {id  } = req.user
 
@@ -53,7 +51,6 @@ const createCourse = async(req,res,next)=>{
             return next(new ApiError("Course not created , please try again",500))
         }
 
-        console.log("course from create course:::"+course);
 
         //file
         if (req.file) {
@@ -66,7 +63,6 @@ const createCourse = async(req,res,next)=>{
                 crop: "fill",
               });
               if (result) {
-                console.log(result.public_id);
                 course.thumbnail.public_id = result.public_id;
                 course.thumbnail.secure_url = result.secure_url;
                 //now we have to remove the file from local server as well
@@ -142,12 +138,10 @@ const addLecturesByCourseId = async(req,res,next)=>{
       return next(new ApiError("Course not found with the given id",404))
     }
 
-    console.log("course::"+course);
 
     const lectureData  = {title , description , lecture:{}}
 
     if (req.file) {
-      console.log(req.file);
       try {
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
           folder: "lectures",
@@ -157,10 +151,8 @@ const addLecturesByCourseId = async(req,res,next)=>{
           crop: "fill",
         });
         if (result) {
-          console.log(result.public_id);
           lectureData.lecture.public_id = result.public_id;
           lectureData.lecture.secure_url = result.secure_url;
-          console.log("lecture data::"+ JSON.stringify(lectureData));
           //now we have to remove the file from local server as well
           fs.unlinkSync(req.file.path);
         }

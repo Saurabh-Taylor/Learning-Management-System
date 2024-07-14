@@ -6,6 +6,8 @@
 - User authentication and role-based access control
 - File Uploads on Cloudinary using multer
 - sending verification and forget password emails using nodemailer
+- RazorPay Api for subscription of courses
+- Course Model and Payment Model 
 
 
 

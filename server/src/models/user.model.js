@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import  bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-import { log } from "console";
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -43,7 +42,10 @@ const userSchema = new mongoose.Schema({
     },
     forgotPasswordToken:String,
     forgotPasswordExpire:Date,
-
+    subscription:{
+        id:String,
+        status:String
+    }
 
 }, {timestamps:true})
 
@@ -64,10 +66,8 @@ userSchema.methods={
     },
     generateRefreshToken : async function () {
         let resetToken =  crypto.randomBytes(20).toString('hex')
-        console.log(resetToken);
         const expiry = Date.now() + 15*60*1000 // 15 minutes
         this.forgotPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex")
-        console.log("forgotPasswordToken::"+this.forgotPasswordToken);
         this.forgotPasswordExpire = expiry
 
         return resetToken
