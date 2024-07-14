@@ -2,10 +2,10 @@
 
 ## Key features:
 - Course creation and management
-- Student enrollment and progress tracking
-- Assignment submission and grading
+- Student enrollment 
 - Discussion forums
 - User authentication and role-based access control
+- DashBoard
 
 # Tech Stack (Client Side)
 - React + Vite
