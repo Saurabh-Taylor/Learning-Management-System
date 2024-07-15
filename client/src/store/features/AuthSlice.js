@@ -1,19 +1,21 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-    isLoggedIn:localStorage.get("isLoggedIn") || false,
-    role:localStorage.get('role') || "",
-    data:localStorage.get('data') || {}
+    isLoggedIn:localStorage.getItem("isLoggedIn") || false,
+    role:localStorage.getItem("role") || "",
+    data:localStorage.getItem("data") || {}
 }
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers:{
-
+        logout:()=>{
+            localStorage.removeItem("isLoggedIn");
+        }
     }
 })
 
-export const  {} = authSlice.actions
+export const  {logout} = authSlice.actions
 
 export default authSlice.reducer

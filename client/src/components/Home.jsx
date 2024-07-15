@@ -1,11 +1,13 @@
 import React from 'react'
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
+import { Button } from 'antd';
 
 
 const Home = () => {
   return (
     <div className='' >
-      <Button onClick={notify} >Click me</Button>
+      {/* <Button  >Click me</Button> */}
+      <Button type="primary">Button</Button>
     </div>
   )
 }
