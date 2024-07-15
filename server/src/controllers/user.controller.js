@@ -5,6 +5,7 @@ import cloudinary from "cloudinary";
 import fs from "fs";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
+import { log } from "console";
 
 const register = async (req, res, next) => {
   try {
@@ -43,6 +44,7 @@ const register = async (req, res, next) => {
           gravity: "faces",
           crop: "fill",
         });
+        console.log("result from user"+ result);
         if (result) {
           user.avatar.public_id = result.public_id;
           user.avatar.secure_url = result.secure_url;

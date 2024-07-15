@@ -90,7 +90,7 @@ const  AppDrawer = ()=> {
     const handleLogout = (e)=>{
         e.preventDefault();
         const response  = dispatch(logout())
-        navigate("/")
+        navigate("/login")
     }
   return (
     <>

@@ -12,6 +12,8 @@ const authSlice = createSlice({
     reducers:{
         logout:()=>{
             localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("role");
+            localStorage.removeItem("data");
         }
     }
 })
