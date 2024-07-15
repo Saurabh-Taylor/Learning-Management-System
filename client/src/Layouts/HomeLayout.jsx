@@ -123,21 +123,21 @@ const  AppDrawer = ()=> {
                   <UiButton className=" rounded-md w-[45%] font-semibold">
                     <Link to={"/login"}>Login</Link>
                   </UiButton>
-                  <button className=" btn-secondary btn  font-semibold rounded-md w-[45%]">
+                  <UiButton className="   font-semibold rounded-md w-[45%]">
                     <Link to={"/signup"}>Signup</Link>
-                  </button>
+                  </UiButton>
                 </div>
               </li>
             )}
             {isLoggedIn && (
               <li className="absolute bottom-4 w-[90%] list-none" >
                 <div className="w-full flex items-center justify-between list ">
-                  <UiButton className=" btn-primary btn rounded-md w-[45%] font-semibold">
+                  <UiButton className="  btn rounded-md w-[45%] font-semibold">
                     <Link to={"/user/profile"}>Profile</Link>
                   </UiButton>
-                  <button className=" btn-secondary btn  font-semibold rounded-md w-[45%]">
+                  <UiButton className="   font-semibold rounded-md w-[45%]">
                     <Link onClick={handleLogout} >Logout</Link>
-                  </button>
+                  </UiButton>
                 </div>
               </li>
             )}
