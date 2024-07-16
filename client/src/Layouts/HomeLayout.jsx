@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button as UiButton } from "@/components/ui/button"
 import { logout } from "@/store/features/AuthSlice";
+import axios from "axios";
 
 
 
@@ -87,10 +88,17 @@ const  AppDrawer = ()=> {
         setPlacement(e.target.value);
     };
 
-    const handleLogout = (e)=>{
+    const handleLogout = async(e)=>{
         e.preventDefault();
-        const response  = dispatch(logout())
+        const result  = dispatch(logout())
         navigate("/login")
+        const token = localStorage.getItem('token');
+        const response = await axios.get("http://localhost:3000/api/v1/user/logout" , {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        })
+        console.log(response);
     }
   return (
     <>

@@ -10,10 +10,12 @@ const app = express()
 
 //built-in middlewares
 app.use(express.json())
-app.use(cors())
+
+app.use(cors("*"))
 // app.use(cors({
 //     origin:[String(process.env.FRONTEND_URL)],
 //     credentials:true 
+//     //This allows the server to accept credentials (like cookies, authorization headers, or TLS client certificates) from the specified origin.
 // }))
 app.use(express.json())
 app.use(morgan("dev"))

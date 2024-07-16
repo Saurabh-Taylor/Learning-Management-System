@@ -63,7 +63,7 @@ const AuthForm = ({ type = "signup" }) => {
         "Content-Type":"multipart/form-data"
       }} )
       console.log(response.data)
-
+      localStorage.setItem("token" , response.data.token)
       localStorage.setItem("isLoggedIn" , true)
       localStorage.setItem("role" , response?.data?.user.role)
       localStorage.setItem("data" , JSON.stringify( response.data.user))
@@ -75,9 +75,8 @@ const AuthForm = ({ type = "signup" }) => {
       }
 
     }else if(type === "login"){
-      const response  = await axios.post('http://localhost:3000/api/v1/user/login' , values )
-      console.log(response.data.user.role)
-
+      const response  = await axios.post('http://localhost:3000/api/v1/user/login'  , values )
+      localStorage.setItem("token" , response.data.token)
       localStorage.setItem("isLoggedIn" , true)
       localStorage.setItem("role" , response?.data?.user.role)
       localStorage.setItem("data" , JSON.stringify( response.data.user))
