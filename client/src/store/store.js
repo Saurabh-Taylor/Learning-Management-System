@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-
+import { configureStore  } from "@reduxjs/toolkit";
 import authReducers from "./features/AuthSlice";
+import courseReducers from "./features/CourseSlice";
+
 
 const store  = configureStore({
     reducer: {
-        auth:authReducers
+        auth:authReducers,
+        courses:courseReducers,
     },
     devTools:true
 })
