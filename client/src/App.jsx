@@ -9,6 +9,9 @@ import NotFound from './Pages/NotFound'
 import SignupPage from './Pages/SignupPage'
 import SignInPage from './Pages/SigninPage'
 import CourseList from './Pages/Course/CourseList'
+import ContactPage from './Pages/ContactPage'
+import DeniedPage from './Pages/DeniedPage'
+import CourseDescription from './Pages/Course/CourseDescription'
 
 function App() {
 
@@ -19,7 +22,10 @@ function App() {
       <Route path='/signup' element={<SignupPage/>}/>
       <Route path='/login' element={<SignInPage/>}/>
       <Route path='/courses' element={<CourseList/>}/>
-      <Route path='/courses/:id' element={<CourseList/>}/>
+      <Route path='/courses/description' element={<CourseDescription/>}/>
+      <Route path='/contact' element={<ContactPage/>}/>
+      <Route path='/denied' element={<DeniedPage/>}/>
+
       <Route path='*' element={<NotFound/>} ></Route>
     </Routes>
   )

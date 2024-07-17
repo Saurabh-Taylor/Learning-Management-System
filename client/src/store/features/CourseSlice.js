@@ -1,17 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import toast  from 'react-hot-toast';
+import toast from 'react-hot-toast';
+
+
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async (_, { rejectWithValue }) => {
     try {
         const response = await axios.get("http://localhost:3000/api/v1/course");
+        if(!response){
+            toast.error("something is wrong with server")
+        }
         if (response.status === 200) {
-            toast.success("Courses fetched successfully");
+            toast.success("Courses fetched successfully")
             return response.data.courses;
         } else {
-            return rejectWithValue('Failed to fetch courses');
+            return toast.error("Some error occurred")
         }
     } catch (error) {
+        toast.error("Failed to fetch courses: Server is down")
         return rejectWithValue(error.response.data.message);
     }
 });
