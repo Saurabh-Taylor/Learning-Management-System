@@ -12,7 +12,7 @@ export default function CourseCard({ course }) {
     };
 
   return (
-    <div onClick={handleCardClick} className="card card-compact bg-base-100 w-96 shadow-xl cursor-pointer ">
+    <div onClick={handleCardClick} className="card card-compact bg-base-100 w-96  shadow-xl cursor-pointer ">
       <figure>
         <img
           src={thumbnail?.secure_url}
@@ -22,7 +22,7 @@ export default function CourseCard({ course }) {
       </figure>
       <div className="card-body">
         <h2 className="card-title text-yellow-500 font-semibold "> {title} </h2>
-        <p>{description}</p>
+        <p>{description?.slice(0 , 100) + "...."}</p>
         <p>
           {" "}
           <span className="text-yellow-500 font-semibold">Lectures:</span>{" "}

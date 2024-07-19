@@ -59,7 +59,7 @@ const CourseDescription = () => {
                 </p>
               </div>
               <div className="grid gap-2">
-                <h2 className="text-xl font-bold">Duration</h2>
+                <h2 className="text-xl text-yellow-500 font-bold">Duration</h2>
                 <p className="text-muted-foreground">4 weeks</p>
               </div>
             </div>
@@ -89,7 +89,7 @@ const CourseDescription = () => {
               </div>
               <div className="grid gap-4">
                 <div className="grid gap-2">
-                  <h3 className="text-xl font-bold">What You'll Learn</h3>
+                  <h3 className="text-xl text-yellow-500 font-bold">What You'll Learn</h3>
                   <ul className="list-disc pl-6 text-muted-foreground">
                     <li>HTML and CSS fundamentals</li>
                     <li>JavaScript and interactivity</li>
@@ -98,7 +98,7 @@ const CourseDescription = () => {
                   </ul>
                 </div>
                 <div className="grid gap-2">
-                  <h3 className="text-xl font-bold">Prerequisites</h3>
+                  <h3 className="text-xl text-yellow-500 font-bold">Prerequisites</h3>
                   <ul className="list-disc pl-6 text-muted-foreground">
                     <li>Basic computer skills</li>
                     <li>No prior coding experience required</li>

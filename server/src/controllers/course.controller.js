@@ -38,15 +38,14 @@ const getCourseById = async (req, res, next) => {
 
 const createCourse = async(req,res,next)=>{
     try {
-        const { title , description , category   } = req.body
-        const {id  } = req.user
+        const { title , description , category , createdBy   } = req.body
 
         if(!title , !description , !category ){
             return next(new ApiError("Please fill all the fields",400))
         }
 
 
-        const course = await Course.create({title,description,category,createdBy:id})
+        const course = await Course.create({title,description,category,createdBy})
         if(!course){
             return next(new ApiError("Course not created , please try again",500))
         }
