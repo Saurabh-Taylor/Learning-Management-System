@@ -6,19 +6,20 @@ import { Link } from 'react-router-dom'
 const UserProfile = () => {
     const dispatch = useDispatch()
     const userData = useSelector(store=> store?.auth?.data)
+    console.log(userData);
 
   return (
     <HomeLayout>
      <div className='  flex justify-center items-center   min-h-[90vh] bg-[#1b263b] ' >
         <div className='my-10 flex flex-col gap-4 p-4 rounded-lg w-96 text-white shadow-[0_0_10px_black]' >
-          <img src={userData?.avatar?.secure_url} className='w-40 m-auto rounded-full border border-black' alt="" srcset="" />
+          <img src={userData?.avatar?.secure_url} className='w-40 m-auto rounded-full border border-black' alt="" />
           <h3 className='text-xl font-semibold text-center capitalize' >
             {userData?.name}
           </h3>
           <div className="grid ">
-            <p>Email: {userData?.email} </p> <br />
-            <p>Role: {userData?.role} </p> <br />
-            <p>Subscription: {userData?.subscription?.status === "active"? "Active" : "Inactive" } </p>
+            <p  > <span className='text-yellow-400'>Email:</span> {userData?.email} </p> <br />
+            <p  > <span className='text-yellow-400'>Role:</span> {userData?.role} </p> <br />
+            <p  > <span className='text-yellow-400'>Subscription:</span> {userData?.subscription?.status === "active"? "Active" : "Inactive" } </p>
           </div>
           <div className="flex items-center justify-between gap-2">
             <Link className='w-1/2 text-center bg-yellow-600 hover:bg-yellow-500 transition-all ease-in-out duration-75 p-2 rounded-sm font-semibold cursor-pointer ' to={"/changepassword"} >

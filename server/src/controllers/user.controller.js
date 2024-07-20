@@ -216,7 +216,7 @@ const changePassword = async (req, res, next) => {
 };
 
 const updateProfile = async (req, res, next) => {
-  const id = req.user.id;
+  let id = req.user.id;
   try {
     const { name } = req.body;
     const user = await User.findById(id);

@@ -62,7 +62,6 @@ const AuthForm = ({ type = "signup" }) => {
       const response  = await axios.post('http://localhost:3000/api/v1/user/register' , values , {headers:{
         "Content-Type":"multipart/form-data"
       }} )
-      console.log(response.data)
       localStorage.setItem("token" , response.data.token)
       localStorage.setItem("isLoggedIn" , true)
       localStorage.setItem("role" , response?.data?.user.role)
