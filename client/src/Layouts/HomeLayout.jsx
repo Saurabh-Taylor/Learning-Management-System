@@ -58,6 +58,12 @@ const  AppDrawer = ()=> {
             path: "/admin",
             requiredAuth: true,
             requiredRole: "ADMIN",
+        },
+        {
+            name: "Create Course",
+            path: "/courses/create",
+            requiredAuth: true,
+            requiredRole: "ADMIN",
         }
     ];
 

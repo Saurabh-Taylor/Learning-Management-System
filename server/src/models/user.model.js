@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
         }
     },
     role:{
-        type:String,
+    type:String,
         enum:["USER" , "ADMIN"],
         default:"USER"
     },
@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     forgotPasswordExpire:Date,
     subscription:{
         id:String,
-        status:String
+        status:String,
     }
 
 }, {timestamps:true})

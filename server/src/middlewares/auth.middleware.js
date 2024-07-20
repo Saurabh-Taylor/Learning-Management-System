@@ -3,7 +3,15 @@ import { ApiError } from "../utils/index.js";
 
 const isLoggedIn = (req,res,next)=>{
    try {
-     let token =  req.headers.authorization.split(" ")[1] 
+    let token 
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+
+    // Check for token in cookies if not found in authorization header
+    if (!token && req.cookies && req.cookies.token) {
+      token = req.cookies.token;
+    }
      if(!token){
          return next(new ApiError("Unauthenticated , Please Login Again", 400));
      }
