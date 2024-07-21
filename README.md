@@ -3,9 +3,11 @@
 ## Key features:
 - Course creation and management
 - Student enrollment 
-- Discussion forums
 - User authentication and role-based access control
 - DashBoard
+- RazorPay Payment (Test)
+- Edit Profile
+
 
 # Tech Stack (Client Side)
 - React + Vite
@@ -15,6 +17,8 @@
 - Redux-Toolkit
 - React Charts
 - react-hot-toast
+- Zod (For Validation)
+- ShadCn
 
 # Tech Stack (Server Side)
 - Node.js (Express.js)
