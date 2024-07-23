@@ -11,7 +11,7 @@ router.route("/razorpay-key")
 router.route('/subscribe')
     .post(isLoggedIn , buySubscription)
 
-router.route("/verify ")
+router.route("/verify")
     .post(isLoggedIn , verifySubscription)
 
 router.route('/unsubscribe')

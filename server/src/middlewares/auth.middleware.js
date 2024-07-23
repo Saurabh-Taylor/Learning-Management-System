@@ -38,4 +38,17 @@ export const adminMiddleware = async (req,res,next)=>{
   }
 }
 
+
+// authorised-Subscriber
+export const authorisedSubscriber = async(req,res,next)=>{
+  try {
+    const {subscription , role} = req.user
+    if(role !== "ADMIN" && subscription.status !== "active"){
+      return next(new ApiError("You are not Subscribed to this particular course ", 403));
+    }
+  } catch (error) {
+    return next(new ApiError(error.message, 500));
+  }
+}
+
 export {isLoggedIn}
