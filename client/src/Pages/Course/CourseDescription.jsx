@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import HomeLayout from "@/Layouts/HomeLayout";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const CourseDescription = () => {
   const { state } = useLocation();
+  const navigate = useNavigate()
   const { category, description, numbersOfLectures, title, thumbnail } = state;
   const { role, data } = useSelector((store) => store?.auth);
 
@@ -30,7 +31,7 @@ const CourseDescription = () => {
                     Watch Lectures
                   </Button>
                 ) : (
-                  <Button className="bg-[#0077b6] text-white hover:bg-[#005a8d] focus:outline-none focus:ring-2 focus:ring-[#0077b6] focus:ring-offset-2">
+                  <Button onClick = {()=> navigate("/checkout")} className="bg-[#0077b6] text-white hover:bg-[#005a8d] focus:outline-none focus:ring-2 focus:ring-[#0077b6] focus:ring-offset-2">
                     Subscribe
                   </Button>
                 )}

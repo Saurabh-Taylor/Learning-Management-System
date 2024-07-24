@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import axiosInstance from "@/Helpers/AxiosInstance";
 import HomeLayout from "@/Layouts/HomeLayout";
+import axios from "axios";
 
 const Contact = () => {
   const [userInput, setUserInput] = useState({
@@ -34,7 +34,7 @@ const Contact = () => {
     }
 
     try {
-      const res = axiosInstance.post("/contact", { ...userInput });
+      const res = axios.post("/contact", { ...userInput });
       toast.promise(res, {
         loading: "Submitting your message...",
         success: "Form submitted successfully",

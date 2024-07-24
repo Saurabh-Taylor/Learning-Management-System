@@ -17,7 +17,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
-import axiosInstance from "@/Helpers/AxiosInstance";
 
 const loginSchema = z.object({
   email: z.string().min(8, { message: "Must be a valid email" }).max(50).email(),
