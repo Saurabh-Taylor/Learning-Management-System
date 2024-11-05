@@ -1,5 +1,8 @@
 # LMS(Learning Management System)
 
+[Frontend](https://learning-management-system-ruddy-psi.vercel.app/)
+[Backend](https://learning-management-system-newf.onrender.com/)
+
 ## Key features:
 - Course creation and management
 - Student enrollment 
